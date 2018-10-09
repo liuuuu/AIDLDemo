@@ -56,6 +56,26 @@ public class AIDLService extends Service {
             }
         }
 
+        @Override
+        public void addBookIn(Book book) throws RemoteException{
+            if (book != null) {
+                book.setName("服务器改了新书的名字 In");
+                bookList.add(book);
+            } else {
+                Log.e(TAG, "接收到了一个空对象 In");
+            }
+        }
+
+        @Override
+        public void addBookOut(Book book) throws RemoteException{
+            if (book != null) {
+                Log.e(TAG, "客户端传来的书的名字：" + book.getName());
+                book.setName("服务器改了新书的名字 Out");
+                bookList.add(book);
+            } else {
+                Log.e(TAG, "接收到了一个空对象 Out");
+            }
+        }
     };
 
     @Override

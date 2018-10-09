@@ -64,6 +64,30 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     break;
+                case R.id.btn_addBook_in:
+                    if (connected) {
+                        Book book = new Book("这是一本新书 In");
+                        try {
+                            bookController.addBookIn(book);
+                            Log.e(TAG, "向服务器以In方式添加了一本新书");
+                            Log.e(TAG, "新书名：" + book.getName());
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                case R.id.btn_addBook_out:
+                    if (connected) {
+                        Book book = new Book("这是一本新书 Out");
+                        try {
+                            bookController.addBookOut(book);
+                            Log.e(TAG, "向服务器以Out方式添加了一本新书");
+                            Log.e(TAG, "新书名：" + book.getName());
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
             }
         }
     };
@@ -74,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findViewById(R.id.btn_addBook_inOut).setOnClickListener(clickListener);
         findViewById(R.id.btn_getBookList).setOnClickListener(clickListener);
+        findViewById(R.id.btn_addBook_in).setOnClickListener(clickListener);
+        findViewById(R.id.btn_addBook_out).setOnClickListener(clickListener);
         bindService();
     }
 
@@ -92,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    private void log(){
+    private void log() {
         for (Book book : bookList) {
             Log.e(TAG, book.toString());
         }
